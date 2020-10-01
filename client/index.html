@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- require CSS from bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>Travel Plan</title>
+</head>
+<body>
+    <!-- navbar header -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <a class="navbar-brand text-white" href="#">Travel Plan App</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link text-white afterLogin" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white afterLogin" href="#">Articles</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white afterLogin" href="#">Add Travel Plan</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white afterLogin" id="logout" href="#">Logout</a>
+              </li>
+          </ul>
+          <!-- <span class="navbar-text">
+            <a class="text-light" href="#">Logout</a>
+          </span> -->
+        </div>
+    </nav>
+
+    <!-- content -->
+    <div class="container mt-5 afterLogin">
+        <div class="row">
+            <div class="col-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- form login -->
+    <div class="container-sm mt-5 mx-auto px-5 w-50 beforeLogin">
+        <h1 class="text-center">Login to Travel Plan App</h1>
+        <form onsubmit="login(event)">
+            <div class="form-group">
+              <small id="errorHandler" class="form-text text-muted"></small>
+              <label for="input_email">Email address</label>
+              <input type="email" class="form-control" id="input_email">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+              <label for="input_password">Password</label>
+              <input type="password" class="form-control" id="input_password">
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+            <small>Or click here to <a href="#" onclick="showRegisterForm()">register</a>.</small>
+        </form>
+    </div>
+
+    <!-- form register -->
+    <div class="container-sm mt-5 mx-auto px-5 w-50 register">
+        <h1 class="text-center">Register</h1>
+        <form onsubmit="register(event)">
+            <div class="form-group">
+                <small id="errorHandler" class="form-text text-muted"></small>
+                <label for="name">Name</label>
+                <input type="name" class="form-control" id="name">
+            </div>
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password">
+            </div>
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" class="form-control" id="confirm_password">
+              </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+            <small>If you already have an account login <a href="#" onclick="showLoginForm()">here</a>.</small>
+        </form>
+    </div>
+
+
+
+    <!-- Define CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <script src="./main.js"></script>
+</body>
+</html>
