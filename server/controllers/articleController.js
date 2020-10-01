@@ -22,14 +22,15 @@ class ArticleController {
                         name: el.restaurant.name,
                         alamat: el.restaurant.location.address,
                         phone: el.restaurant.phone_numbers,
+                        img: el.restaurant.thumb
 
                     }
                     result.push(value)
 
                 });
                 // console.log(result)
-                res.status(200).json(response.data.restaurants)
-                // res.status(200).json(result)
+                // res.status(200).json(response.data.restaurants)
+                res.status(200).json(result)
 
 
                 // res.send(JSON.stringify(response))
