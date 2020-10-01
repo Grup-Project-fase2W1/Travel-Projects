@@ -1,26 +1,26 @@
-$(document).ready(function(){
-    if(localStorage.access_token){
+$(document).ready(function () {
+    if (localStorage.access_token) {
         afterLogin()
     }
-    else{
+    else {
         beforeLogin()
     }
 })
 
-function afterLogin(){
+function afterLogin() {
     $(".afterLogin").show()
     $(".beforeLogin").hide()
     $(".register").hide()
     fetchTravel()
 }
 
-function beforeLogin(){
+function beforeLogin() {
     $(".afterLogin").hide()
     $(".register").hide()
     $(".beforeLogin").show()
 }
 
-function login(event){
+function login(event) {
     event.preventDefault()
     let email = $('#email').val()
     let password = $('#password').val()
@@ -47,7 +47,7 @@ function login(event){
         })
 }
 
-function fetchTravel(){
+function fetchTravel() {
     $.ajax({
         method: 'GET',
         url: 'http://localhost:3000/travel',
@@ -64,7 +64,7 @@ function fetchTravel(){
 
 }
 
-function register(event){
+function register(event) {
     event.preventDefault()
     let name = $('#name').val()
     let email = $('#email').val()
@@ -72,18 +72,51 @@ function register(event){
     console.log(name, email, password)
 }
 
-function showRegisterForm(){
+function showRegisterForm() {
     $(".register").show()
     $(".beforeLogin").hide()
 }
 
-function showLoginForm(){
+function showLoginForm() {
     $(".register").hide()
     $(".beforeLogin").show()
 }
 
-$("#logout").click(function(){
+$("#logout").click(function () {
     localStorage.removeItem('access_token')
     beforeLogin()
+    signOut()
 })
 
+
+function onSignIn(googleUser) {
+    // var profile = googleUser.getBasicProfile();
+    // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    // console.log('Name: ' + profile.getName());
+    // console.log('Image URL: ' + profile.getImageUrl());
+    // console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    var google_access_token = googleUser.getAuthResponse().id_token;
+    // console.log(google_access_token)
+    $.ajax({
+        method: `POST`,
+        url: `http://localhost:3000/googleLogin`,
+        headers: {
+            google_access_token
+        }
+    })
+        .done(result => {
+            console.log(result, "<<<<<<")
+            localStorage.setItem("access_token", result.access_token)
+            afterLogin()
+        })
+        .fail(err => {
+
+        })
+}
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        console.log('User signed out.');
+    });
+}
