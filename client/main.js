@@ -11,6 +11,7 @@ function afterLogin(){
     $(".afterLogin").show()
     $(".beforeLogin").hide()
     $(".register").hide()
+    fetchTravel()
 }
 
 function beforeLogin(){
@@ -24,6 +25,43 @@ function login(event){
     let email = $('#email').val()
     let password = $('#password').val()
     console.log(email, password)
+    // afterLogin()
+    $.ajax({
+        method: 'POST',
+        url: 'http://localhost:3000/login',
+        data: {
+            email,
+            password
+        }
+    })
+        .done(result => {
+            console.log(result)
+            localStorage.access_token = result.access_token
+            afterLogin()
+        })
+        .fail(() => {
+            console.log('Error.')
+        })
+        .always(() => {
+            console.log('Complete')
+        })
+}
+
+function fetchTravel(){
+    $.ajax({
+        method: 'GET',
+        url: 'http://localhost:3000/travel',
+        headers: {
+            access_token: localStorage.access_token
+        }
+    })
+        .done(result => {
+            console.log(result)
+        })
+        .fail(() => {
+            console.log('Error.')
+        })
+
 }
 
 function register(event){
@@ -48,3 +86,4 @@ $("#logout").click(function(){
     localStorage.removeItem('access_token')
     beforeLogin()
 })
+

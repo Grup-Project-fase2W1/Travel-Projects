@@ -17,16 +17,16 @@
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link text-white" href="#">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link text-white afterLogin" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" href="#">Articles</a>
+              <a class="nav-link text-white afterLogin" href="#">Articles</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" href="#">Add Travel Plan</a>
+              <a class="nav-link text-white afterLogin" href="#">Add Travel Plan</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white" id="logout" href="#">Logout</a>
+                <a class="nav-link text-white afterLogin" id="logout" href="#">Logout</a>
               </li>
           </ul>
           <!-- <span class="navbar-text">
@@ -77,13 +77,13 @@
         <form onsubmit="login(event)">
             <div class="form-group">
               <small id="errorHandler" class="form-text text-muted"></small>
-              <label for="email">Email address</label>
-              <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+              <label for="input_email">Email address</label>
+              <input type="email" class="form-control" id="input_email">
               <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" id="password">
+              <label for="input_password">Password</label>
+              <input type="password" class="form-control" id="input_password">
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
             <small>Or click here to <a href="#" onclick="showRegisterForm()">register</a>.</small>
