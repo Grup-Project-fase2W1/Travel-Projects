@@ -8,7 +8,17 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.addColumn("Travels", "UserId", Sequelize.INTEGER)
+    return queryInterface.addConstraint("Travels",{
+      fields: ["UserId"],
+      type: "FOREIGN KEY",
+      name: "custom_fkey_constraint_userid",
+      references: {
+        table: "Users",
+        field: "id",
+      },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    })
   },
 
   down: async (queryInterface, Sequelize) => {
@@ -18,6 +28,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.removeColumn("Travels", "UserId",)
+    return queryInterface.removeConstraint("Travels","custom_fkey_constraint_userid",{})
   }
 };
