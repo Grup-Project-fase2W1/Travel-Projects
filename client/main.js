@@ -10,7 +10,7 @@ $(document).ready(function () {
 })
 
 function afterLogin() {
-    $("#afterLogin").show()
+    $("#contenTravel").show()
     $("#beforeLogin").hide()
     $("#register").hide()
     $("#HomeNav").show()
@@ -21,12 +21,16 @@ function afterLogin() {
     $("#jumbotron_edit_form").hide()
     fetchTravel()
     $("#article").hide()
+    $("#holiday").hide()
+    $("#weather").hide()
     fetchWeather()
     fetchHoliday()
+
 }
 
+
 function beforeLogin() {
-    $("#afterLogin").hide()
+    $("#contenTravel").hide()
     $("#beforeLogin").show()
     $("#register").hide()
     $("#HomeNav").hide()
@@ -35,6 +39,10 @@ function beforeLogin() {
     $("#logout").hide()
     $("#jumbotron_travel_form").hide()
     $("#jumbotron_edit_form").hide()
+    $("#holiday").hide()
+    $("#weather").hide()
+    $("#article").hide()
+
 }
 
 function login(event) {
@@ -84,7 +92,7 @@ function fetchTravel() {
                     <div class="card-body">
                         <h5 class="card-title">${value.title}</h5>
                         <p class="card-text">Destination: ${value.destination}<p>
-                        <p class="card-text">Departure date: ${new Date (value.date).toLocaleDateString("id")}<p>
+                        <p class="card-text">Departure date: ${new Date(value.date).toLocaleDateString("id")}<p>
                         <p class="card-text">Travel status: ${value.status}</p>
                         <button type="button" class="btn btn-primary" onclick="updateTravel(${value.id}, event)">Edit</button>
                         <button type="button" class="btn btn-danger" onclick="if (confirm('Are you sure?')) { return removeTravel(${value.id}, event) }">Delete</button>
@@ -112,7 +120,7 @@ function fetchWeather() {
             console.log(result)
             Travels = result
             $("#article_weather").empty()
-            $.each(Travels, function(key, value){
+            $.each(Travels, function (key, value) {
                 $("#article_weather").append(`
                 <div class="col-4 mb-2">
                     <div class="card" style="width: 18rem;">
@@ -182,7 +190,7 @@ function register(event) {
 }
 
 
-function addTravel(event){
+function addTravel(event) {
     event.preventDefault()
     let title = $('#title').val()
     let destination = $('#destination').val()
@@ -190,7 +198,7 @@ function addTravel(event){
     let status = $('#status').val()
     $.ajax({
         method: 'POST',
-        url:' http://localhost:3000/travel',
+        url: ' http://localhost:3000/travel',
         data: {
             title,
             destination,
@@ -201,7 +209,7 @@ function addTravel(event){
             access_token: localStorage.access_token
         }
     })
-        .done(()=> {
+        .done(() => {
             afterLogin()
         })
         .fail(() => {
@@ -212,7 +220,7 @@ function addTravel(event){
         })
 }
 
-function removeTravel(id, event){
+function removeTravel(id, event) {
     event.preventDefault()
     $.ajax({
         method: 'DELETE',
@@ -233,9 +241,9 @@ function removeTravel(id, event){
         })
 }
 
-function updateTravel(id, event){
+function updateTravel(id, event) {
     event.preventDefault()
-    $("#afterLogin").hide()
+    $("#contenTravel").hide()
     $("#jumbotron_edit_form").show()
     $.ajax({
         method: 'GET',
@@ -261,7 +269,7 @@ function updateTravel(id, event){
             </div>
             <div class="form-group">
                 <label for="edit-date">Departure Date (Planned)</label>
-                <input type="date" class="form-control" id="edit-date" value ="${data.date.substring(0,10)}">
+                <input type="date" class="form-control" id="edit-date" value ="${data.date.substring(0, 10)}">
             </div>
             <div class="form-group">
               <label for="edit-status">Travel Status</label>
@@ -282,7 +290,7 @@ function updateTravel(id, event){
         })
 }
 
-function putTravel(id, event){
+function putTravel(id, event) {
     event.preventDefault()
     let title = $('#edit-title').val()
     let destination = $('#edit-destination').val()
@@ -306,19 +314,17 @@ function putTravel(id, event){
         })
         .fail(() => {
             console.log("Error.")
-    })
+        })
 }
-              
-              
+
+
 function fetchArticle() {
-    $("#article").show()
     $.ajax({
         method: "GET",
         url: `http://localhost:3000/article`,
 
     })
         .done(data => {
-            console.log(data)
             $.each(data, (key, value) => {
                 $("#ABS").append(` 
                 <div class="col-sm-3 mb-3 ">
@@ -335,10 +341,11 @@ function fetchArticle() {
      </div>
                 `)
             })
+
         })
         .fail((err) => {
-    console.log(err)
-    })
+            console.log(err)
+        })
 }
 
 
@@ -352,9 +359,12 @@ function showLoginForm() {
     $("#beforeLogin").show()
 }
 
-function showAddForm(){
+function showAddForm() {
+    afterLogin()
     $("#jumbotron_travel_form").show()
-    $("#afterLogin").hide()
+    $("#contenTravel").hide()
+
+
 }
 
 
@@ -363,6 +373,56 @@ $("#logout").click(function () {
     beforeLogin()
     signOut()
 })
+
+function showCalendar() {
+    $("#holiday").show()
+    $("#contenTravel").hide()
+    $("#beforeLogin").hide()
+    $("#register").hide()
+    $("#HomeNav").show()
+    $("#ArticlesNav").show()
+    $("#NewTravelPlanNav").show()
+    $("#logout").show()
+    $("#jumbotron_travel_form").hide()
+    $("#jumbotron_edit_form").hide()
+    $("#article").hide()
+    $("#weather").hide()
+    fetchHoliday()
+
+}
+
+function showweather() {
+    $("#weather").show()
+    $("#contenTravel").hide()
+    $("#beforeLogin").hide()
+    $("#register").hide()
+    $("#HomeNav").show()
+    $("#ArticlesNav").show()
+    $("#NewTravelPlanNav").show()
+    $("#logout").show()
+    $("#jumbotron_travel_form").hide()
+    $("#jumbotron_edit_form").hide()
+    $("#article").hide()
+    $("#holiday").hide()
+
+    fetchWeather()
+}
+
+function showArticle() {
+    fetchArticle()
+    $("#contenTravel").hide()
+    $("#beforeLogin").hide()
+    $("#register").hide()
+    $("#HomeNav").show()
+    $("#ArticlesNav").show()
+    $("#NewTravelPlanNav").show()
+    $("#logout").show()
+    $("#jumbotron_travel_form").hide()
+    $("#jumbotron_edit_form").hide()
+    $("#article").show()
+    $("#holiday").hide()
+    $("#weather").hide()
+}
 
 
 function onSignIn(googleUser) {
