@@ -10,9 +10,15 @@ $(document).ready(function () {
 })
 
 function afterLogin() {
-    $(".afterLogin").show()
-    $(".beforeLogin").hide()
-    $(".register").hide()
+    $("#afterLogin").show()
+    $("#beforeLogin").hide()
+    $("#register").hide()
+    $("#HomeNav").show()
+    $("#ArticlesNav").show()
+    $("#NewTravelPlanNav").show()
+    $("#logout").show()
+    $("#jumbotron_travel_form").hide()
+    $("#jumbotron_edit_form").hide()
     fetchTravel()
     $("#article").hide()
     fetchWeather()
@@ -20,9 +26,15 @@ function afterLogin() {
 }
 
 function beforeLogin() {
-    $(".afterLogin").hide()
-    $(".register").hide()
-    $(".beforeLogin").show()
+    $("#afterLogin").hide()
+    $("#beforeLogin").show()
+    $("#register").hide()
+    $("#HomeNav").hide()
+    $("#ArticlesNav").hide()
+    $("#NewTravelPlanNav").hide()
+    $("#logout").hide()
+    $("#jumbotron_travel_form").hide()
+    $("#jumbotron_edit_form").hide()
 }
 
 function login(event) {
@@ -61,20 +73,21 @@ function fetchTravel() {
         }
     })
         .done(result => {
-            console.log(result)
+            // console.log(result)
             Travels = result
             $("#travel_list").empty()
             $.each(Travels, function (key, value) {
                 $("#travel_list").append(`
                 <div class="col-4 mb-2">
-                    <div class="card" style="width: 18rem;">
+                    <div class="card border-primary" style="width: 18rem;">
+                    <img src="http://www.diegomallien.com/wp-content/uploads/2017/03/Meaning-of-travelling-300x167.jpg"></img>
                     <div class="card-body">
                         <h5 class="card-title">${value.title}</h5>
                         <p class="card-text">Destination: ${value.destination}<p>
-                        <p class="card-text">Departure date: ${value.date.toLocaleString("id")}<p>
+                        <p class="card-text">Departure date: ${new Date (value.date).toLocaleDateString("id")}<p>
                         <p class="card-text">Travel status: ${value.status}</p>
-                        <button type="button" class="btn btn-primary">Delete</button>
-                        <button type="button" class="btn btn-primary">Update</button>
+                        <button type="button" class="btn btn-primary" onclick="updateTravel(${value.id}, event)">Edit</button>
+                        <button type="button" class="btn btn-danger" onclick="if (confirm('Are you sure?')) { return removeTravel(${value.id}, event) }">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -168,6 +181,135 @@ function register(event) {
         })
 }
 
+
+function addTravel(event){
+    event.preventDefault()
+    let title = $('#title').val()
+    let destination = $('#destination').val()
+    let date = $('#date').val()
+    let status = $('#status').val()
+    $.ajax({
+        method: 'POST',
+        url:' http://localhost:3000/travel',
+        data: {
+            title,
+            destination,
+            date,
+            status
+        },
+        headers: {
+            access_token: localStorage.access_token
+        }
+    })
+        .done(()=> {
+            afterLogin()
+        })
+        .fail(() => {
+            console.log('Error.')
+        })
+        .always(() => {
+            $('#addTravelForm').trigger("reset")
+        })
+}
+
+function removeTravel(id, event){
+    event.preventDefault()
+    $.ajax({
+        method: 'DELETE',
+        url: `http://localhost:3000/travel/${id}`,
+        headers: {
+            access_token: localStorage.access_token
+        }
+    })
+        .done(() => {
+            // console.log(result)
+            afterLogin()
+        })
+        .fail(() => {
+            console.log('Error.')
+        })
+        .always(() => {
+            $('#registerForm').trigger("reset")
+        })
+}
+
+function updateTravel(id, event){
+    event.preventDefault()
+    $("#afterLogin").hide()
+    $("#jumbotron_edit_form").show()
+    $.ajax({
+        method: 'GET',
+        url: `http://localhost:3000/travel/${id}`,
+        headers: {
+            access_token: localStorage.access_token
+        }
+    })
+        .done(result => {
+            // afterLogin()
+            let data = result
+            // console.log(data.date.substring(0,10))
+            $("#editTravelForm").empty()
+            $("#editTravelForm").append(`<form>
+            <h3>Edit your travel plan</h3>
+            <div class="form-group">
+                <label for="edit-title">Title</label>
+                <input type="text" class="form-control" id="edit-title" value ="${data.title}">
+            </div>
+            <div class="form-group">
+                <label for="edit-destination">Destination</label>
+                <input type="text" class="form-control" id="edit-destination" value ="${data.destination}">
+            </div>
+            <div class="form-group">
+                <label for="edit-date">Departure Date (Planned)</label>
+                <input type="date" class="form-control" id="edit-date" value ="${data.date.substring(0,10)}">
+            </div>
+            <div class="form-group">
+              <label for="edit-status">Travel Status</label>
+              <select class="form-control" id="edit-status">
+                <option>Please select one</option>
+                <option value="Plan" ${data.status === "Plan" ? "selected" : ""}>Plan</option>
+                <option value="On Vacation" ${data.status === "On Vacation" ? "selected" : ""}>On Vacation</option>
+                <option value="Cancel" ${data.status === "Cancel" ? "selected" : ""}>Cancel</option>
+                <option value="Done" ${data.status === "Done" ? "selected" : ""}>Done</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary" onclick="putTravel(${data.id}, event)">Update</button>
+            <button type="button" class="btn btn-danger" onclick="afterLogin()">Cancel</button>
+        </form>`)
+        })
+        .fail(() => {
+            console.log('Error.')
+        })
+}
+
+function putTravel(id, event){
+    event.preventDefault()
+    let title = $('#edit-title').val()
+    let destination = $('#edit-destination').val()
+    let date = $('#edit-date').val()
+    let status = $('#edit-status').val()
+    $.ajax({
+        method: 'PUT',
+        url: `http://localhost:3000/travel/${id}`,
+        headers: {
+            access_token: localStorage.access_token
+        },
+        data: {
+            title,
+            destination,
+            date,
+            status
+        }
+    })
+        .done(() => {
+            afterLogin()
+        })
+        .fail(() => {
+            console.log("Error.")
+    })
+}
+              
+              
 function fetchArticle() {
     $("#article").show()
     $.ajax({
@@ -194,17 +336,27 @@ function fetchArticle() {
                 `)
             })
         })
+        .fail((err) => {
+    console.log(err)
+    })
 }
 
+
 function showRegisterForm() {
-    $(".register").show()
-    $(".beforeLogin").hide()
+    $("#register").show()
+    $("#beforeLogin").hide()
 }
 
 function showLoginForm() {
-    $(".register").hide()
-    $(".beforeLogin").show()
+    $("#register").hide()
+    $("#beforeLogin").show()
 }
+
+function showAddForm(){
+    $("#jumbotron_travel_form").show()
+    $("#afterLogin").hide()
+}
+
 
 $("#logout").click(function () {
     localStorage.removeItem('access_token')
