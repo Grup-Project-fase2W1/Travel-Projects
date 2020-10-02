@@ -116,6 +116,32 @@ class ArticleController {
                 res.status(404).json(err)
             })
     }
+
+    static holiday(req,res,next){
+        axios({
+            method: "GET",
+            url: `https://holidayapi.com/v1/holidays?pretty&key=${process.env.HOLIDAY_KEY}&country=ID&year=2019`,
+        })
+            .then(response => {
+                let holiday = response.data.holidays
+                let result = []
+
+                holiday.forEach(el => {
+                    //console.log(el.name)
+                    let value = {
+                        name: el.name,
+                        date: el.date,
+                    }
+                    result.push(value)
+                });
+                res.status(200).json(result)
+                
+
+            })
+            .catch(err => {
+                res.status(500).json(err)
+            })
+    }
 }
 
 module.exports = ArticleController
