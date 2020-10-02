@@ -1,0 +1,14 @@
+body{
+    font-family: 'Josefin Slab', serif !important;
+    background-image: url("https://icltours.com/img/slides/slide_5.jpg");
+    
+}
+
+.border{
+    -webkit-box-shadow: 10px 10px 23px 8px rgba(153,153,153,1);
+-moz-box-shadow: 10px 10px 23px 8px rgba(153,153,153,1);
+box-shadow: 10px 10px 23px 8px rgba(153,153,153,1);
+}
+#headlogin {
+    margin-top: 50px;
+}
