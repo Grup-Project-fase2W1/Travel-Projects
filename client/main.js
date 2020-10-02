@@ -25,6 +25,8 @@ function afterLogin() {
     $("#weather").hide()
     fetchWeather()
     fetchHoliday()
+    $("#WeatherNav").show()
+    $("#CalendarHoliday").show()
 
 }
 
@@ -42,6 +44,8 @@ function beforeLogin() {
     $("#holiday").hide()
     $("#weather").hide()
     $("#article").hide()
+    $("#WeatherNav").hide()
+    $("#CalendarHoliday").hide()
 
 }
 
