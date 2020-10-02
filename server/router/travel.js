@@ -5,9 +5,9 @@ const {authentication, authorization} = require('../middlewares/middleware')
 route.use(authentication)
 route.get('/',TravelController.listHandler)
 route.post('/',TravelController.addHandler)
-route.get('/:id',TravelController.findHandler)
+route.get('/:id',authorization,TravelController.findHandler)
 route.put('/:id',authorization,TravelController.putHandler)
-route.patch('/:id',authorization,TravelController.patchHandler)
+// route.patch('/:id',authorization,TravelController.patchHandler)
 route.delete('/:id',authorization,TravelController.deleteHandler)
 
 
