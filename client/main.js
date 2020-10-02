@@ -30,7 +30,6 @@ function afterLogin() {
 
 }
 
-
 function beforeLogin() {
     $("#contenTravel").hide()
     $("#beforeLogin").show()
