@@ -11,6 +11,11 @@
     <!-- require CSS from bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@600&family=Permanent+Marker&display=swap"
+        rel="stylesheet">
+    <!-- css file -->
+    <link rel="stylesheet" href="./style.css">
     <title>Travel Plan</title>
 </head>
 
@@ -24,7 +29,8 @@
                 <button class="nav-link btn btn-dark text-white" type="button" id="HomeNav" onclick="afterLogin()">Home</button>
             </li>
             <li class="nav-item">
-                <button class="nav-link btn btn-dark text-white" type="button" id="ArticlesNav">Articles</button>
+                <button class="nav-link btn btn-dark text-white" type="button" onclick="fetchArticle()" id="ArticlesNav">Articles</button>
+          
             </li>
             <li class="nav-item">
                 <button class="nav-link btn btn-dark text-white" type="button" id="NewTravelPlanNav" onclick="showAddForm()">New Travel Plan</button>
@@ -33,11 +39,36 @@
                 <button class="nav-link btn btn-dark text-white" type="button" id="logout">Logout</button>
             </li>
           </ul>
-          
+        
         </div>
     </nav>
+    <!--Weather Article-->
+    <div class="container mt-5 afterLogin">
+
+        <div class="row" id="article_weather">
+            
+
+        </div>
+    </div>
+
+    <!--Holiday Table-->
+    <div class="container afterLogin">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+            <th scope="col">Holiday Name</th>
+            <th scope="col">Date</th>
+            </tr>
+        </thead>
+        <tbody id="holiday-list">
+            <!--Append from script-->
+        </tbody>
+        </table>
+    </div>
+
 
     <!-- content -->
+
     <div class="jumbotron mt-5" id="afterLogin">
         <div class="container">
     
@@ -45,6 +76,7 @@
                 
     
             </div>
+
         </div>
 
     </div>
@@ -93,7 +125,7 @@
                 <label for="password">Password</label>
                 <input type="password" class="form-control" id="password">
             </div>
-            
+
             <button type="submit" class="btn btn-primary">Register</button>
             <small>If you already have an account, login <a href="#" onclick="showLoginForm()">here</a>.</small>
         </form>
@@ -119,11 +151,14 @@
                 <div class="form-group">
                   <label for="status">Travel Status</label>
                   <select class="form-control" id="status">
+    
                     <option>Please select one</option>
                     <option value="Plan">Plan</option>
                     <option value="On Vacation">On Vacation</option>
                     <option value="Cancel">Cancel</option>
                     <option value="Done">Done</option>
+                    
+
                   </select>
                 </div>
                 <button type="submit" class="btn btn-primary" onclick="addTravel(event)">Add</button>
@@ -134,11 +169,21 @@
 
     <!-- form edit travel -->
     <div class="jumbotron" id="jumbotron_edit_form">
-        <div class="container" id="editTravelForm">
-            
+        <div class="container" id="editTravelForm">        
         </div>
+    </div>
+
+    <!-- article zomato -->
+    <div class="jumbotron jumbotron-fluid bg-light" id="article">
+        <div class="container">
+
+            <div class="row" id="ABS">
+            </div>
+        </div>
+    </div>
 
     </div>
+
 
 
     <!-- Define CDN -->
