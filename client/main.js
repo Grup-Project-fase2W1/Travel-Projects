@@ -14,6 +14,8 @@ function afterLogin() {
     $(".beforeLogin").hide()
     $(".register").hide()
     fetchTravel()
+    fetchWeather()
+    fetchHoliday()
 }
 
 function beforeLogin() {
@@ -82,6 +84,63 @@ function fetchTravel() {
             console.log('Error.')
         })
 
+}
+
+function fetchWeather() {
+    $.ajax({
+        method: 'GET',
+        url: 'http://localhost:3000/weather',
+        headers: {
+            access_token: localStorage.access_token
+        }
+    })
+        .done(result => {
+            console.log(result)
+            Travels = result
+            $("#article_weather").empty()
+            $.each(Travels, function(key, value){
+                $("#article_weather").append(`
+                <div class="col-4 mb-2">
+                    <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">${value.city}</h5>
+                        <p class="card-text">Temperature: <h1>${value.temperature}</h1><p>
+                        <p class="card-text">Description: ${value.description}<p>
+                        </div>
+                    </div>
+                </div>
+                `)
+            })
+        })
+        .fail(() => {
+            console.log('Error.')
+        })
+
+}
+
+const fetchHoliday = () => {
+    $.ajax({
+        method: 'GET',
+        url: 'http://localhost:3000/holiday',
+        headers: {
+            access_token: localStorage.access_token
+        }
+    })
+        .done(result => {
+            $("#holiday-list").empty()
+            $.each(result, (key, value) => {
+                $("#holiday-list").append(`
+            <tr>
+            <th scope="row">${value.name}</th>
+            <td>${value.date}</td>
+          </tr>
+          `
+                )
+            })
+        })
+        .fail(err => {
+            alert(err.responseJSON.message)
+        })
 }
 
 function register(event) {
