@@ -14,6 +14,7 @@ function afterLogin() {
     $(".beforeLogin").hide()
     $(".register").hide()
     fetchTravel()
+    $("#article").hide()
 }
 
 function beforeLogin() {
@@ -61,7 +62,7 @@ function fetchTravel() {
             console.log(result)
             Travels = result
             $("#travel_list").empty()
-            $.each(Travels, function(key, value){
+            $.each(Travels, function (key, value) {
                 $("#travel_list").append(`
                 <div class="col-4 mb-2">
                     <div class="card" style="width: 18rem;">
@@ -105,6 +106,34 @@ function register(event) {
         })
         .fail(() => {
             console.log('Error.')
+        })
+}
+
+function fetchArticle() {
+    $("#article").show()
+    $.ajax({
+        method: "GET",
+        url: `http://localhost:3000/article`,
+
+    })
+        .done(data => {
+            console.log(data)
+            $.each(data, (key, value) => {
+                $("#ABS").append(` 
+                <div class="col-sm-3 mb-3 ">
+    <div class="card bg-transparent text-dark mb-3 border" style="max-width: 18rem;">
+        <div class="card-header"><h3>${value.name}</h3></div>
+                <img src="${value.img}" class="card-img-top" alt="...">
+                <div class="card-body">
+                     <p class="card-text">${value.alamat}</p>
+                     <p class="card-text">${value.phone}</p>
+                     <a href="${value.url}" class="btn btn-outline-danger">Zomato Resto</a>
+                </div>
+            </div>
+         </div>
+     </div>
+                `)
+            })
         })
 }
 

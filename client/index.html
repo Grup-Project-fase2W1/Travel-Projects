@@ -11,6 +11,11 @@
     <!-- require CSS from bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@600&family=Permanent+Marker&display=swap"
+        rel="stylesheet">
+    <!-- css file -->
+    <link rel="stylesheet" href="./style.css">
     <title>Travel Plan</title>
 </head>
 
@@ -19,25 +24,27 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-dark">
         <button class="nav-link btn btn-dark text-white" type="button">Travel Plan App</button>
         <div class="collapse navbar-collapse" id="navbarText">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <button class="nav-link btn btn-dark text-white afterLogin" type="button">Home</button>
-                <!-- <a class="nav-link text-white afterLogin" href="#">Home <span class="sr-only">(current)</span></a> -->
-            </li>
-            <li class="nav-item">
-                <button class="nav-link btn btn-dark text-white afterLogin" type="button">Articles</button>
-                <!-- <a class="nav-link text-white afterLogin" href="#">Articles</a> -->
-            </li>
-            <li class="nav-item">
-                <button class="nav-link btn btn-dark text-white afterLogin" type="button">New Travel Plan</button>
-                <!-- <a class="nav-link text-white afterLogin" href="#">Add Travel Plan</a> -->
-            </li>
-            <li class="nav-item">
-                <button class="nav-link btn btn-dark text-white afterLogin" type="button" id="logout">Logout</button>
-                <!-- <a class="nav-link text-white afterLogin" id="logout" href="#">Logout</a> -->
-              </li>
-          </ul>
-          
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <button class="nav-link btn btn-dark text-white afterLogin" type="button">Home</button>
+                    <!-- <a class="nav-link text-white afterLogin" href="#">Home <span class="sr-only">(current)</span></a> -->
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link btn btn-dark text-white afterLogin" type="button"
+                        onclick="fetchArticle()">Articles</button>
+                    <!-- <a class="nav-link text-white afterLogin" href="#">Articles</a> -->
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link btn btn-dark text-white afterLogin" type="button">New Travel Plan</button>
+                    <!-- <a class="nav-link text-white afterLogin" href="#">Add Travel Plan</a> -->
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link btn btn-dark text-white afterLogin" type="button"
+                        id="logout">Logout</button>
+                    <!-- <a class="nav-link text-white afterLogin" id="logout" href="#">Logout</a> -->
+                </li>
+            </ul>
+
         </div>
     </nav>
 
@@ -45,7 +52,7 @@
     <div class="container mt-5 afterLogin">
 
         <div class="row" id="travel_list">
-            
+
 
         </div>
     </div>
@@ -91,7 +98,7 @@
                 <label for="password">Password</label>
                 <input type="password" class="form-control" id="password">
             </div>
-            
+
             <button type="submit" class="btn btn-primary">Register</button>
             <small>If you already have an account login <a href="#" onclick="showLoginForm()">here</a>.</small>
         </form>
@@ -114,18 +121,30 @@
                 <input type="date" class="form-control" id="date" placeholder="e.g. Jakarta">
             </div>
             <div class="form-group">
-              <label for="travel_status">Travel Status</label>
-              <select class="form-control" id="travel_status">
-                <option>Please select one</option>
-                <option value="Plan">Plan</option>
-                <option value="On Vacation">On Vacation</option>
-                <option value="Cancel">Cancel</option>
-                <option value="Done">Done</option>
-              </select>
+                <label for="travel_status">Travel Status</label>
+                <select class="form-control" id="travel_status">
+                    <option>Please select one</option>
+                    <option value="Plan">Plan</option>
+                    <option value="On Vacation">On Vacation</option>
+                    <option value="Cancel">Cancel</option>
+                    <option value="Done">Done</option>
+                </select>
             </div>
             <button type="submit" class="btn btn-primary">Add</button>
         </form>
     </div>
+
+    <!-- article zomato -->
+    <div class="jumbotron jumbotron-fluid bg-light" id="article">
+        <div class="container">
+
+            <div class="row" id="ABS">
+            </div>
+        </div>
+    </div>
+
+    </div>
+
 
 
     <!-- Define CDN -->
