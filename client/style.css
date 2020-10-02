@@ -1,0 +1,9 @@
+body{
+    font-family: 'Josefin Slab', serif !important;
+}
+
+.border{
+    -webkit-box-shadow: 10px 10px 23px 8px rgba(153,153,153,1);
+-moz-box-shadow: 10px 10px 23px 8px rgba(153,153,153,1);
+box-shadow: 10px 10px 23px 8px rgba(153,153,153,1);
+}
